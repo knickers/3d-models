@@ -1,18 +1,28 @@
 Width = 100;
 Length = 200;
 Thickness = 10;
-r = Thickness / 2;
 Outer_Leg_Depth = 40;
 Inner_Leg_Depth = 75;
 Leg_Separation = 20;
 Chamfer_Size = 0;
 
+r = Thickness / 2;
 $fa = $preview ? 15 : 1;
 $fs = $preview ? 3 : 0.75;
 
-translate([0, 0, Chamfer_Size])
-	linear_extrude(Length-Chamfer_Size*2)
-		outline();
+if ($preview) {
+	rotate(90, [1,0,0])
+		translate([0, 0, -Length/2])
+			draw();
+} else {
+	draw();
+}
+
+module draw() {
+	translate([0, 0, Chamfer_Size])
+		linear_extrude(Length-Chamfer_Size*2)
+			outline();
+}
 
 module outline() {
 	// Top plate
