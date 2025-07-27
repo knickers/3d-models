@@ -1,3 +1,4 @@
+**/*.3mf
 **/*.gcode
 **/*.stl
 .DS_Store
