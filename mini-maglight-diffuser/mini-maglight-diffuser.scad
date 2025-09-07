@@ -80,8 +80,8 @@ module body_perimeter() {
 		[
 			[Interior_Lip_Diameter/2, Thread_Height],
 			[Interior_Lip_Diameter/2, 1],
-			[Inside_Diameter/2 + Tolerance, 0],
-			[Inside_Diameter/2 + Tolerance, -Depth],
+			[Inside_Diameter/2 + Tolerance*2, 0],
+			[Inside_Diameter/2 + Tolerance*2, -Depth],
 			[Outside_Diameter/2, -Depth],
 			[Outside_Diameter/2, Thread_Height],
 			[Top_Diameter/2, Height+Thread_Height],
