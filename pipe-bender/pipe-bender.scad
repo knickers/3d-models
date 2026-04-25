@@ -1,4 +1,4 @@
-Pipe_Diameter = 14;
+Pipe_Diameter = 14; // 0.01
 pipe_radius = Pipe_Diameter / 2;
 Bend_Radius = 75;
 
@@ -21,7 +21,7 @@ difference() {
 		translate([Bend_Radius, 0])
 			circle(r=pipe_radius, $fa=$fa*2, $fs=$fs*2);
 
-	// Bottom cutter
+	// Flatten the bottom
 	translate([-Bend_Radius-1, -Bend_Radius-Pipe_Diameter-1, -Pipe_Diameter-1])
 		cube([Bend_Radius*2+2, Bend_Radius+1, Pipe_Diameter*2+2]);
 
