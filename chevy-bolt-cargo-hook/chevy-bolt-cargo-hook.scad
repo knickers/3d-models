@@ -1,16 +1,18 @@
 Tab_Thickness = 1.5; // 0.01
-Tab_Width = 9.6; // 0.01
+Tab_Width = 11.0; // 0.01
 Tab_Outer_Diameter = 33.5; // 0.01
-Socket_Inner_Diameter = 24.5; // 0.01
+Tab_Latch_Height = 0.7; // 0.01
+Tab_Latch_Angle = 0.0; // 0.01
+Socket_Inner_Diameter = 27.5; // 0.01
 Socket_Inner_Radius = Socket_Inner_Diameter / 2;
 Socket_Inner_Depth = 3.0; // 0.01
 Flange_Thickness = 2.5; // 0.01
 Flange_Outer_Diameter = 36.0; // 0.01
 Flange_Inner_Diameter = 19.5; // 0.01
 Hook_Thickness = 4.0; // 0.01
-Hook_Chamfer = Hook_Thickness/3;
+Hook_Chamfer = Hook_Thickness/2 * (2 - sqrt(2)); // h = r(2-sqrt(2))
 Total_Height = Tab_Thickness+Socket_Inner_Depth+Flange_Thickness;
-Part = "Hook"; // [Tabs, Hook, Pin]
+Part = "Hook"; // [Tabs, Hook]
 
 $fa = $preview ? 15 : 2;
 $fs = $preview ? 1.25 : 1;
@@ -18,7 +20,7 @@ $fs = $preview ? 1.25 : 1;
 if (Part == "Tabs") {
 	tab_socket();
 }
-if (Part == "Hook") {
+else if (Part == "Hook") {
 	difference() {
 		union() {
 			tab_socket();
@@ -27,12 +29,16 @@ if (Part == "Hook") {
 		hook_negative();
 	}
 }
-if (Part == "Pin") {
-}
 
 module body() {
 	// Tabs
 	cylinder(d=Tab_Outer_Diameter, h=Tab_Thickness);
+
+	// Tab Latches
+	rotate(Tab_Latch_Angle, [0,0,1])
+	translate([-Tab_Outer_Diameter*.99/2, 0, -Tab_Latch_Height])
+		rotate(45, [1,0,0])
+			cube([Tab_Outer_Diameter*0.99, Tab_Latch_Height*2, Tab_Latch_Height*2]);
 
 	// Socket
 	cylinder(d=Socket_Inner_Diameter, h=Socket_Inner_Depth+Tab_Thickness);
